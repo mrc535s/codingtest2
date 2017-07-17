@@ -1,73 +1,81 @@
 import React, { Component } from 'react';
-import Projects from './Components/Projects';
-import AddProject from './Components/AddProject';
 import './App.css';
 
+
+const movies = [
+  {
+    id: 1,
+    title: "Lord of the Rings",
+    genre: "Fantasy"
+  },
+  {
+    id:2,
+    title: "Avengers",
+    genre: "Action"
+  },
+  {
+    id:3,
+    title: "Pulp Fiction",
+    genre: "Drama"
+  },
+  {
+    id:4,
+    title: "Harry Potter",
+    genre: "Fantasy"
+  },
+  {
+    id:5,
+    title: "Titanic",
+    genre: "Romance"
+  },
+  {
+    id:6,
+    title: "Batman",
+    genre: "Action"
+  }
+]
+
+function searchingFor(term) {
+  return function(x){
+    return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
+  }
+}
+
 class App extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor(){
-    super();
-    this.state = {
-        projects: []
-    }
+      this.state = {
+        movies: movies ,
+        term: '',
+      }
+
+      this.searchHandler = this.searchHandler.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({
-      projects: [
-      {
-          title: 'Business Website',
-          category: 'Web Design'
-        },
-        {
-          title: 'Social App',
-          category: 'Mobile Development'
-        },
-        {
-          title: 'Ecommerce Application',
-          category: 'Web Development'
-        }
-      ],
-      movieTitles: [
-        {
-          title: 'Lord of the Rings'
-        },
-        {
-          title: 'Harry Potter'
-        },
-        {
-          title: 'Pulp Fiction'
-        },
-        {
-          title: 'Avengers'
-        },
-        {
-          title: 'Indiana Jones'
-        },
-        {
-          title: 'Finding Nemo'
-        }
-      ]
-    });
-  }
-
-  handleAddProject(project) {
-    console.log(project);
-    let projects = this.state.projects;
-    projects.push(project);
-    this.setState({projects:projects});
+  searchHandler(event) {
+    this.setState({term: event.target.value})
   }
 
   render() {
+    const {term, title} = this.state;
     return (
-      <div className="App">
+      <div className ="App">
         <div>
-          <h1>Project:</h1>
-          <AddProject addProject={this.handleAddProject.bind(this)}/>
-          <Projects projects={this.state.projects}/>
-        </div>
-        <div>
-          <h1> Movie Titles: </h1>
+          <form>
+            <input type="text"
+              onChange={this.searchHandler}
+              value={term}
+            />
+          </form>
+
+          {
+            movies.filter(searchingFor(term)).map(titles =>
+                <ul key={titles.id}>
+                  {titles.title}
+                </ul>
+              )
+          }
         </div>
       </div>
     );
