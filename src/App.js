@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 const movies = [
   {
     id: 1,
@@ -35,47 +34,61 @@ const movies = [
   }
 ]
 
-function searchingFor(term) {
-  return function(x){
-    return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
-  }
-}
 
-class App extends Component {
+function searchingFor(term) {
+    return function(x){
+      return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
+    }
+  }
+
+class List extends React.Component {
+
   constructor(props) {
-    super(props);
+      super(props);
 
       this.state = {
-        movies: movies ,
+        movies: movies,
         term: '',
       }
 
       this.searchHandler = this.searchHandler.bind(this);
-  }
+    }
 
-  searchHandler(event) {
-    this.setState({term: event.target.value})
-  }
+    searchHandler(event) {
+      this.setState({term: event.target.value})
+    }
 
-  render() {
-    const {term, title} = this.state;
-    return (
-      <div className ="App">
-        <div>
-          <form>
-            <input type="text"
-              onChange={this.searchHandler}
-              value={term}
-            />
-          </form>
+    render() {
+      const{term, title} = this.state;
+      return (
+        <div className ="theList">
+          <div>
+            <form>
+              <input type="text"
+                onChange={this.searchHandler}
+                value={term}
+              />
+            </form>
 
-          {
-            movies.filter(searchingFor(term)).map(titles =>
+            {
+              movies.filter(searchingFor(term)).map(titles =>
                 <ul key={titles.id}>
                   {titles.title}
                 </ul>
-              )
-          }
+                )
+            }
+          </div>
+        </div>
+    );
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className ="App">
+        <div className="filter-list">
+          <List/>
         </div>
       </div>
     );
