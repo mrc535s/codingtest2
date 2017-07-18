@@ -50,6 +50,7 @@ class SortButton extends Component {
   render() {
     return(
       <div className="sortButton">
+        <input type="button" value="Sort" />
       </div>
     )
   }
