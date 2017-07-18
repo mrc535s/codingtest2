@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddMovie from './Components/AddMovie';
 import './App.css';
 
 const movies = [
@@ -45,6 +46,48 @@ class Input extends React.Component {
   render() {
     return(
       <div className="theInput">
+        <input type="text"
+        name="inputBox"/>
+      </div>
+    )
+  }
+}
+
+class Button extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      movies:{}
+    }
+  }
+
+  handleSubmit(e) {
+    if(this.refs.title.value === '') {
+      alert('Input Required');
+    } else {
+      this.setState({ movies:{
+        title: this.refs.title.value,
+        genre: this.refs.genre.value
+
+      }}, function(){
+        this.props.Button(this.state.movies);
+        //console.log(this.state);
+      });
+    }
+    e.preventDefault();
+  }
+
+  render() {
+    return (
+      <div className="AddMovie">
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <div>
+          <label>Title</label> <br />
+          <input type="text" ref="title" />
+        </div>
+        <input type="submit" value="Submit" />
+      </form>
       </div>
     )
   }
@@ -95,11 +138,17 @@ class List extends React.Component {
 }
 
 class App extends React.Component {
+
+  handleAddMovie(project) {
+    console.log(project);
+  }
+
   render() {
     return (
       <div className ="App">
         <h3> Filter a Movie List </h3>
         <div className="filter-list">
+          <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
           <List/>
         </div>
       </div>
