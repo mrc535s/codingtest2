@@ -25,7 +25,7 @@ class AddMovie extends Component {
 	render() {
 		return (
 			<div>
-				<h3> Add Project </h3>
+				<h3> Add Movie </h3>
 				<form onSubmit={this.handleSubmit.bind(this)}>
 					<div>
 						<label>Title</label> <br />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddMovie from './Components/AddMovie';
 import './App.css';
 
-const movies = [
+var movies = [
   {
     id: 1,
     title: "Lord of the Rings",
@@ -42,7 +42,7 @@ function searchingFor(term) {
     }
   }
 
-class Input extends React.Component {
+class Input extends Component {
   render() {
     return(
       <div className="theInput">
@@ -53,41 +53,10 @@ class Input extends React.Component {
   }
 }
 
-class Button extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      movies:{}
-    }
-  }
-
-  handleSubmit(e) {
-    if(this.refs.title.value === '') {
-      alert('Input Required');
-    } else {
-      this.setState({ movies:{
-        title: this.refs.title.value,
-        genre: this.refs.genre.value
-
-      }}, function(){
-        this.props.Button(this.state.movies);
-        //console.log(this.state);
-      });
-    }
-    e.preventDefault();
-  }
-
+class SortButton extends Component {
   render() {
-    return (
-      <div className="AddMovie">
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <div>
-          <label>Title</label> <br />
-          <input type="text" ref="title" />
-        </div>
-        <input type="submit" value="Submit" />
-      </form>
+    return(
+      <div className="sortButton">
       </div>
     )
   }
@@ -149,6 +118,7 @@ class App extends React.Component {
         <h3> Filter a Movie List </h3>
         <div className="filter-list">
           <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
+          <br />
           <List/>
         </div>
       </div>
