@@ -41,6 +41,15 @@ function searchingFor(term) {
     }
   }
 
+class Input extends React.Component {
+  render() {
+    return(
+      <div className="theInput">
+      </div>
+    )
+  }
+}
+
 class List extends React.Component {
 
   constructor(props) {
@@ -65,6 +74,8 @@ class List extends React.Component {
           <div>
             <form>
               <input type="text"
+                name="searchBox"
+                placeholder="Search"
                 onChange={this.searchHandler}
                 value={term}
               />
@@ -87,6 +98,7 @@ class App extends React.Component {
   render() {
     return (
       <div className ="App">
+        <h3> Filter a Movie List </h3>
         <div className="filter-list">
           <List/>
         </div>
