@@ -28,13 +28,14 @@ class AddMovie extends Component {
 				<h3> Add Movie </h3>
 				<form onSubmit={this.handleSubmit.bind(this)}>
 					<div>
-						<label>Title</label> <br />
+						<label>Title:</label> <br />
 						<input type="text" ref="title" />
 					</div>
 					<div>
-						<label>Genre</label> <br />
+						<label>Genre:</label> <br />
 						<input type="text" ref="genre" />
 					</div>
+					<br />
 					<input type="submit" value="Submit" />
 				</form>
 			</div>

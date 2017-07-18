@@ -5,7 +5,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Codingtest2
 
-#Running the app
+# Running the app
 
 1. npm start
 

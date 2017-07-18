@@ -32,10 +32,20 @@ var movies = [
     id:6,
     title: "Batman",
     genre: "Action"
+  },
+  {
+    id:7,
+    title: "Lost in Paris",
+    genre: "Comedy"
+  },
+  {
+    id:8,
+    title: "Spiderman: Homecoming",
+    genre: "Action"
   }
 ]
 
-class Input extends Component {
+/* class Input extends Component {
   render() {
     return(
       <div className="theInput">
@@ -44,9 +54,10 @@ class Input extends Component {
       </div>
     )
   }
-}
+} */
 
 class SortButton extends Component {
+
   render() {
     return(
       <div className="sortButton">
@@ -63,7 +74,7 @@ class List extends React.Component {
 
     this.state = {
       movies: movies,
-      term: '',
+      term: ''
     }
 
     this.searchHandler = this.searchHandler.bind(this);
@@ -79,7 +90,7 @@ class List extends React.Component {
     this.setState({term: event.target.value})
   }
 
-  fourthMethod(e) {
+  onlyAlphabet(e) {
     const re =/[a-zA-Z]+/g;
     if (!re.test(e.key)) {
       e.preventDefault();
@@ -92,18 +103,18 @@ class List extends React.Component {
       <div className ="theList">
         <div>
           <form>
+            <h3> Search and Filter </h3>
             <input type="text"
-              onKeyPress={(e) => this.fourthMethod(e)}
+              onKeyPress={(e) => this.onlyAlphabet(e)}
               name="searchBox"
               placeholder="Search"
               onChange={this.searchHandler}
               value={term}
             />
           </form>
-
           {
             movies.filter(this.searchingFor(term)).map(titles =>
-              <ul key={titles.id}>
+              <ul className="filter-list" key={titles.id}>
                 {titles.title}
               </ul>
               )
@@ -123,12 +134,9 @@ class App extends React.Component {
   render() {
     return (
       <div className ="App">
-        <h3> Filter a Movie List </h3>
-        <div className="filter-list">
           <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
           <br />
           <List/>
-        </div>
       </div>
     );
   }
