@@ -79,6 +79,13 @@ class List extends React.Component {
     this.setState({term: event.target.value})
   }
 
+  fourthMethod(e) {
+    const re =/[a-zA-Z]+/g;
+    if (!re.test(e.key)) {
+      e.preventDefault();
+    }
+  }
+
   render() {
     const{term, title} = this.state;
     return (
@@ -86,6 +93,7 @@ class List extends React.Component {
         <div>
           <form>
             <input type="text"
+              onKeyPress={(e) => this.fourthMethod(e)}
               name="searchBox"
               placeholder="Search"
               onChange={this.searchHandler}
