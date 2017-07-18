@@ -35,13 +35,6 @@ var movies = [
   }
 ]
 
-
-function searchingFor(term) {
-    return function(x){
-      return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
-    }
-  }
-
 class Input extends Component {
   render() {
     return(
@@ -65,43 +58,49 @@ class SortButton extends Component {
 class List extends React.Component {
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = {
-        movies: movies,
-        term: '',
-      }
-
-      this.searchHandler = this.searchHandler.bind(this);
+    this.state = {
+      movies: movies,
+      term: '',
     }
 
-    searchHandler(event) {
-      this.setState({term: event.target.value})
+    this.searchHandler = this.searchHandler.bind(this);
+  }
+
+  searchingFor(term) {
+    return function(x){
+      return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
     }
+  }
 
-    render() {
-      const{term, title} = this.state;
-      return (
-        <div className ="theList">
-          <div>
-            <form>
-              <input type="text"
-                name="searchBox"
-                placeholder="Search"
-                onChange={this.searchHandler}
-                value={term}
-              />
-            </form>
+  searchHandler(event) {
+    this.setState({term: event.target.value})
+  }
 
-            {
-              movies.filter(searchingFor(term)).map(titles =>
-                <ul key={titles.id}>
-                  {titles.title}
-                </ul>
-                )
-            }
-          </div>
+  render() {
+    const{term, title} = this.state;
+    return (
+      <div className ="theList">
+        <div>
+          <form>
+            <input type="text"
+              name="searchBox"
+              placeholder="Search"
+              onChange={this.searchHandler}
+              value={term}
+            />
+          </form>
+
+          {
+            movies.filter(this.searchingFor(term)).map(titles =>
+              <ul key={titles.id}>
+                {titles.title}
+              </ul>
+              )
+          }
         </div>
+      </div>
     );
   }
 }
