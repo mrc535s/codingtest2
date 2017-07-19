@@ -24,21 +24,16 @@ var movies = [
   },
   {
     id:5,
-    title: "Titanic",
-    genre: "Romance"
+    title: "Argo",
+    genre: "Drama"
   },
   {
     id:6,
-    title: "Batman",
+    title: "Inception",
     genre: "Action"
   },
   {
     id:7,
-    title: "Lost in Paris",
-    genre: "Comedy"
-  },
-  {
-    id:8,
     title: "Spiderman: Homecoming",
     genre: "Action"
   }
@@ -65,7 +60,7 @@ class SortButton extends Component {
 
   render() {
     return(
-      <div className="Button">
+      <div className="button">
         <input type="button"
          value="Sort"
          />
@@ -104,7 +99,7 @@ class AddMovie extends Component {
   render() {
     return (
       <div>
-        <h3> Add Movie </h3>
+        <h3> Add & Sort Movies </h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div>
             <label>Title:</label> <br />
@@ -117,8 +112,9 @@ class AddMovie extends Component {
           <br />
           <input type="submit" value="Submit" />
         </form>
-        <List movies = {this.state.movies} />
+        <br/>
         <SortButton movies = {this.state.movies} />
+        <List movies = {this.state.movies} />
       </div>
     )
   }
@@ -155,12 +151,12 @@ class List extends React.Component {
   }
 
   render() {
-    const{term, title} = this.state;
+    const{term} = this.state;
     return (
       <div className ="theList">
         <div>
           <form>
-            <h3> Search and Filter </h3>
+            <h3> Search & Filter </h3>
             <input type="text"
               onKeyPress={(e) => this.onlyAlphabet(e)}
               name="searchBox"
@@ -172,7 +168,9 @@ class List extends React.Component {
           {
             movies.filter(this.searchingFor(term)).map(titles =>
               <ul className="filter-list" key={titles.id}>
-                {titles.title}
+                <b>{titles.title}</b>
+                <br/>
+                <sub>{titles.genre}</sub>
               </ul>
               )
           }
