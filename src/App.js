@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AddMovie from './Components/AddMovie';
 import './App.css';
 
 var movies = [
@@ -45,7 +44,7 @@ var movies = [
   }
 ]
 
-/* class Input extends Component {
+ class Input extends Component {
   render() {
     return(
       <div className="theInput">
@@ -54,7 +53,7 @@ var movies = [
       </div>
     )
   }
-} */
+}
 
 class SortButton extends Component {
 
@@ -67,13 +66,62 @@ class SortButton extends Component {
   }
 }
 
+class AddMovie extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      movies: movies,
+      newMovie: {}
+    }
+  }
+
+  handleSubmit(e) {
+    if(this.refs.title.value === '') {
+      alert('Title is required');
+    } else {
+      this.setState({newMovie:{
+        title: this.refs.title.value,
+        genre: this.refs.genre.value,
+      }}, function() {
+        this.props.AddMovie(this.state.newMovie);
+        (this.state.movies).push(this.state.newMovie);
+        console.log(movies);
+        this.forceUpdate();
+      });
+    }
+    e.preventDefault();
+  }
+
+  render() {
+    return (
+      <div>
+        <h3> Add Movie </h3>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <div>
+            <label>Title:</label> <br />
+            <input type="text" ref="title" />
+          </div>
+          <div>
+            <label>Genre:</label> <br />
+            <input type="text" ref="genre" />
+          </div>
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+        <List movies = {this.state.movies} />
+      </div>
+    )
+  }
+}
+
 class List extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: movies,
+      movies: {},
       term: ''
     }
 
@@ -127,6 +175,14 @@ class List extends React.Component {
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state={
+      movies: movies
+    }
+  }
+
   handleAddMovie(project) {
     console.log(project);
   }
@@ -136,7 +192,6 @@ class App extends React.Component {
       <div className ="App">
           <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
           <br />
-          <List/>
       </div>
     );
   }
