@@ -36,6 +36,11 @@ var movies = [
     id:7,
     title: "Spiderman: Homecoming",
     genre: "Action"
+  },
+  {
+    id:8,
+    title: "Shaun of the Dead",
+    genre: "Comedy"
   }
 ]
 
@@ -135,7 +140,9 @@ class List extends React.Component {
 
   searchingFor(term) {
     return function(x){
-      return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
+      return x.title.toLowerCase().includes(term.toLowerCase()) ||
+      x.genre.toLowerCase().includes(term.toLowerCase()) ||
+      !term;
     }
   }
 
