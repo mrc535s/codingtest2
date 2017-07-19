@@ -56,11 +56,19 @@ var movies = [
 }
 
 class SortButton extends Component {
+  constructor() {
+    super();
+    this.state = {
+      movies: {}
+    }
+  }
 
   render() {
     return(
-      <div className="sortButton">
-        <input type="button" value="Sort" />
+      <div className="Button">
+        <input type="button"
+         value="Sort"
+         />
       </div>
     )
   }
@@ -110,6 +118,7 @@ class AddMovie extends Component {
           <input type="submit" value="Submit" />
         </form>
         <List movies = {this.state.movies} />
+        <SortButton movies = {this.state.movies} />
       </div>
     )
   }
