@@ -75,7 +75,6 @@ class SortButton extends Component {
 }
 
 class AddMovie extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -85,8 +84,9 @@ class AddMovie extends Component {
   }
 
   handleSubmit(e) {
-    if(this.refs.title.value === '') {
-      alert('Title is required');
+    if((this.refs.title.value === '') ||
+      this.refs.genre.value === '')  {
+      alert('Title and Genre is required.');
     } else {
       this.setState({newMovie:{
         title: this.refs.title.value,
@@ -126,7 +126,6 @@ class AddMovie extends Component {
 }
 
 class List extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -142,7 +141,7 @@ class List extends React.Component {
     return function(x){
       return x.title.toLowerCase().includes(term.toLowerCase()) ||
       x.genre.toLowerCase().includes(term.toLowerCase()) ||
-      !term;
+      !term ;
     }
   }
 
@@ -188,7 +187,6 @@ class List extends React.Component {
 }
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
