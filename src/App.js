@@ -69,13 +69,22 @@ class SortButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: {}
+      movies: {} // You don't need the movie state here.
     }
     /* This console log comes up as null even when I pass in state from
       line 141. I'm not sure if this is the correct way to do this.
+
+      ---Mike's NOTE---- 
+      You don't want to use this.state.movies here.  
+      You actually want to access the props (readonly) since it is being passed as a property
+
     */
     console.log(this.state.movies)
+    console.log(this.props.movies);
   }
+
+  /// You need to bind this function similiar to how you did the search function.
+  // You will also probably need to pass a function down with the state from the parent function instead of defining here.
 
   sortData() {
   }
@@ -84,7 +93,7 @@ class SortButton extends Component {
     return(
       <div className="button">
         <input type="button"
-          onClick={this.sortData}
+          onClick={this.sortData} // so this would call this.props.sortData which is passed down from the parent function
           value="Sort"
          />
       </div>
@@ -118,6 +127,13 @@ class AddMovie extends Component {
     e.preventDefault();
   }
 
+  // sortMovies() { -- Make sure to bind this to the component
+      //  sort the movies here so something like
+      // this.state.movies.sort((a, b)=> {
+        //... I won't give you all the answers :)
+      //})
+  // }
+
   render() {
     return (
       <div>
@@ -135,10 +151,11 @@ class AddMovie extends Component {
           <input type="submit" value="Submit" />
         </form>
         <br/>
-        <SortButton movies = {this.state.movies}/>
+        <SortButton movies = {this.state.movies}/> 
         <List movies = {this.state.movies} />
       </div>
     )
+    // For the <SortButton> you can passdown a sortMovies function that is bound the this component.
   }
 }
 
