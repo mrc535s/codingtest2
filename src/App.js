@@ -55,19 +55,40 @@ var movies = [
   }
 }
 
+
+/*
+  I'm having trouble setting state and sorting the data of the movies.
+  What I want to do is pass in the movies from AddMovie however, whenever
+  I try to set state in the constructor it keeps coming up as null.
+  I was wondering how should I approach this problem, should I be putting the
+  SortButton component within another component? or am I doing something wrong with
+  setting the state? Also I'm not sure how sorting works in React
+*/
+
 class SortButton extends Component {
   constructor() {
     super();
     this.state = {
       movies: {}
     }
+    /* This console log comes up as null even when I pass in state from
+      line 141.
+    */
+    console.log(this.state.movies)
+  }
+
+  sortData() {
+    this.setState({
+      movies: this.props.payYears.sort(this.state.movies.title)
+    })
   }
 
   render() {
     return(
       <div className="button">
         <input type="button"
-         value="Sort"
+          onClick={this.sortData}
+          value="Sort"
          />
       </div>
     )
@@ -94,7 +115,6 @@ class AddMovie extends Component {
       }}, function() {
         this.props.AddMovie(this.state.newMovie);
         (this.state.movies).push(this.state.newMovie);
-        console.log(movies);
         this.forceUpdate();
       });
     }
@@ -133,7 +153,6 @@ class List extends React.Component {
       movies: {},
       term: ''
     }
-
     this.searchHandler = this.searchHandler.bind(this);
   }
 
@@ -203,6 +222,7 @@ class App extends React.Component {
     return (
       <div className ="App">
           <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
+          <SortButton movies={this.state.movies}/>
           <br />
       </div>
     );
