@@ -66,21 +66,18 @@ var movies = [
 */
 
 class SortButton extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movies: {}
     }
     /* This console log comes up as null even when I pass in state from
-      line 141.
+      line 141. I'm not sure if this is the correct way to do this.
     */
     console.log(this.state.movies)
   }
 
   sortData() {
-    this.setState({
-      movies: this.props.payYears.sort(this.state.movies.title)
-    })
   }
 
   render() {
@@ -138,7 +135,7 @@ class AddMovie extends Component {
           <input type="submit" value="Submit" />
         </form>
         <br/>
-        <SortButton movies = {this.state.movies} />
+        <SortButton movies = {this.state.movies}/>
         <List movies = {this.state.movies} />
       </div>
     )
@@ -222,7 +219,6 @@ class App extends React.Component {
     return (
       <div className ="App">
           <AddMovie AddMovie={this.handleAddMovie.bind(this)}/>
-          <SortButton movies={this.state.movies}/>
           <br />
       </div>
     );
